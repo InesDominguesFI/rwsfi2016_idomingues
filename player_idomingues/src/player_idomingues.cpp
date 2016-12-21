@@ -34,7 +34,7 @@ class MyPlayer: public rwsfi2016_libs::Player
       //Behaviour follow the closest prey
       //move(msg.max_displacement, getAngleToPLayer(preys_team->players[0]));
       //move(msg.max_displacement, M_PI/30);
-	double dist_min = 1000; int pl_min=0;
+	double dist_min = INFINITY; int pl_min=0;
 	for(int pl=0;pl<preys_team->players.size();pl++)
 	{
 		double dist = getDistanceToPlayer(preys_team->players[pl]);
