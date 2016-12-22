@@ -42,9 +42,10 @@ class MyPlayer: public rwsfi2016_libs::Player
         marker.action = visualization_msgs::Marker::ADD;
         marker.scale.z = 0.4;
         marker.color.a = 1.0; // Don't forget to set the alpha!
-        marker.color.r = 0.0;
+        marker.color.r = 1.0;
         marker.color.g = 0.0;
         marker.color.b = 0.0;
+        marker.text = "\nAqui vou eu!";
 
         service = node.advertiseService(name + "/game_query", &MyPlayer::serviceCallback,this);
     };
@@ -114,17 +115,21 @@ class MyPlayer: public rwsfi2016_libs::Player
             if (escape == 0)
             {
                 move(displacement,getAngleToPLayer(preys_team->players[chosen_pl_to_hunt]));
+                marker.text = "\nVou-te apanhar " + preys_team->players[chosen_pl_to_hunt] + "!!!";
             }
             else
             {
                 move(displacement,getAngleToPLayer(hunters_team->players[chosen_pl_to_run_away_from])+2*M_PI);
+                marker.text = "\nAi que medo "+ hunters_team->players[chosen_pl_to_run_away_from] + "!!! Vou fugir!!!";
             }
         }
         else
         {
             string arena = "/map";
             move(displacement, getAngleToPLayer(arena) );
+            marker.text = "\nEstou a sair da arena, ai ai!!!";
         }
+        publ.publish(marker);
     }
 };
 
